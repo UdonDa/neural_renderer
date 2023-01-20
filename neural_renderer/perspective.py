@@ -17,5 +17,11 @@ def perspective(vertices, angle=30.):
     z = vertices[:, :, 2]
     x = vertices[:, :, 0] / z / width
     y = vertices[:, :, 1] / z / width
+    
+    # Modified due to https://github.com/hongfz16/AvatarCLIP#installation
+    x[z<=0] = 0
+    y[z<=0] = 0
+    z[z<=0] = 0
+    
     vertices = torch.stack((x,y,z), dim=2)
     return vertices
